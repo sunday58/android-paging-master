@@ -20,10 +20,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.codelabs.paging.data.GithubRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 /**
  * Factory for ViewModels
  */
+@FlowPreview
 @ExperimentalCoroutinesApi
 class ViewModelFactory(private val repository: GithubRepository) : ViewModelProvider.Factory {
 
