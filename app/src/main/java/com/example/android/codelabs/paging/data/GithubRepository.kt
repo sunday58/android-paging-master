@@ -39,12 +39,19 @@ class GithubRepository(
 
      fun getSearchResultStream(query: String): Flow<PagingData<Repo>> {
         Log.d("GithubRepository", "New query: $query")
+         val dbQuery = "%${query.replace(' ', '%')}%"
+         val pagingSourceFactory = { database.reposDao().reposByName(dbQuery)}
        return  Pager(
                config = PagingConfig(
                        pageSize = NETWORK_PAGE_SIZE,
                        enablePlaceholders = false
                ),
-               pagingSourceFactory = { GithubPagingSource(service, query)}
+               remoteMediator = GithubRemoteMediator(
+                       query,
+                       service,
+                       database
+               ),
+               pagingSourceFactory = pagingSourceFactory
        ).flow
     }
 
