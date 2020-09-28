@@ -14,8 +14,9 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(repo: List<Repo>)
 
-    @Query("SELECT * FROM repos WHERE name LIKE :queryString OR" +
-            "description LIKE :queryString ORDER BY stars DESC, name ASC")
+    @Query("SELECT * FROM repos WHERE " +
+            "name LIKE :queryString OR description LIKE :queryString " +
+            "ORDER BY stars DESC, name ASC")
     fun reposByName(queryString: String): PagingSource<Int, Repo>
 
     @Query("DELETE FROM repos")
