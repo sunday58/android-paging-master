@@ -21,6 +21,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.android.codelabs.paging.api.GithubService
+import com.example.android.codelabs.paging.db.RepoDatabase
 import com.example.android.codelabs.paging.model.Repo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -31,7 +32,10 @@ import kotlinx.coroutines.flow.Flow
  */
 @FlowPreview
 @ExperimentalCoroutinesApi
-class GithubRepository(private val service: GithubService) {
+class GithubRepository(
+        private val service: GithubService,
+        private val database: RepoDatabase
+) {
 
      fun getSearchResultStream(query: String): Flow<PagingData<Repo>> {
         Log.d("GithubRepository", "New query: $query")
